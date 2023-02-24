@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\WebUser;
 use App\Http\Requests\StoreWebUserRequest;
 use App\Http\Requests\UpdateWebUserRequest;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class WebUserController extends Controller
 {
@@ -45,11 +50,31 @@ class WebUserController extends Controller
      * @param  \App\Models\WebUser  $webUser
      * @return \Illuminate\Http\Response
      */
-    public function show(WebUser $webUser)
+    public function show(Request $request): \Illuminate\Http\Response
     {
         //
-    }
+        $user  = WebUser::where('email',$request['email'])->first();
 
+        if (!isset($user) || ($user && !(Hash::check($request['password'],$user->password)))){
+            return response()->json(['error'=>'Incorrect Password'],500);
+        }
+        else {
+            Auth::login($user);
+            return response()->json(['data'=>$user]);
+        }
+    }
+    public function login(Request $request): Response|JsonResponse
+    {
+        $user  = webuser::where('email',$request['email'])->first();
+
+        if (!isset($user) || ($user && !(Hash::check($request['password'],$user->password)))){
+            return response()->json(['error'=>'Incorrect Password'],500);
+        }
+        else {
+            Auth::login($user);
+            return response()->json(['data'=>$user]);
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      *

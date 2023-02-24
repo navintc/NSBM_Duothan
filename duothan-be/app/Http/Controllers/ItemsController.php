@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Items;
 use App\Http\Requests\StoreItemsRequest;
 use App\Http\Requests\UpdateItemsRequest;
+use Illuminate\Http\Request;
 
 class ItemsController extends Controller
 {
@@ -16,6 +17,8 @@ class ItemsController extends Controller
     public function index()
     {
         //
+        $items = Items::all();
+        return response()->json(['items' => $items]);
     }
 
     /**
@@ -37,6 +40,7 @@ class ItemsController extends Controller
     public function store(StoreItemsRequest $request)
     {
         //
+
     }
 
     /**
@@ -45,9 +49,18 @@ class ItemsController extends Controller
      * @param  \App\Models\Items  $items
      * @return \Illuminate\Http\Response
      */
-    public function show(Items $items)
+    public function show($id, Request $request)
     {
         //
+        $searchTerm = $request->input('search');
+
+        $item = Items::findOrFail($id);
+
+        $posts = $item->posts()->when($searchTerm, function ($query, $searchTerm) {
+            $query->where('name', 'like', '%' . $searchTerm . '%');
+        })->get();
+
+        return response()->json(['items' => $item, 'posts' => $posts]);
     }
 
     /**

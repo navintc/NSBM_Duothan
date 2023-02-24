@@ -3,6 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ItemsController;
+use App\Http\Controllers\PharmacyController;
+use App\Http\Controllers\WebUserController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,6 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('WebUser', WebUserController::class);
-Route::resource('Pharmacy', PharmacyController::class);
-Route::resource('Items', ItemController::class);
+Route::resource('webuser', WebUserController::class);
+Route::resource('pharmacy', PharmacyController::class);
+Route::resource('items', ItemsController::class);
+
+Route::post('/login', [WebUserController::class,'login']);
