@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 //hash is used for the password
 use Illuminate\Support\Facades\Hash;
 
-class ItemSeeder extends Seeder
+class ItemsSeeder extends Seeder
 {
     /**
      * Run the database seeds.

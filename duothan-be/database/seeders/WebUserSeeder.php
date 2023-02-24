@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 //hash is used for the password
 use Illuminate\Support\Facades\Hash;
 
-class UserSeeder extends Seeder
+class WebUserseeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,8 +17,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        //
-        DB::table('users')->insert([
+        DB::table('web_users')->insert([
             'name' => "Bileka Karunarathne",
             'email' => "bileka@bileka.com",
             'password' => Hash::make('password'),
@@ -26,7 +25,7 @@ class UserSeeder extends Seeder
             'userType' => 0,
         ]);
 
-        DB::table('users')->insert([
+        DB::table('web_users')->insert([
             'name' => "Ruby Windowsinghe",
             'email' => "ruby@bileka.com",
             'password' => Hash::make('password'),
@@ -34,7 +33,7 @@ class UserSeeder extends Seeder
             'userType' => 1,
         ]);
 
-        DB::table('users')->insert([
+        DB::table('web_users')->insert([
             'name' => "Digitalia Javarathne",
             'email' => "talia@bileka.com",
             'password' => Hash::make('password'),
@@ -42,7 +41,7 @@ class UserSeeder extends Seeder
             'userType' => 1,
         ]);
 
-        DB::table('users')->insert([
+        DB::table('web_users')->insert([
             'name' => "Jenkins Kontrolean",
             'email' => "jenkins@bileka.com",
             'password' => Hash::make('password'),
@@ -50,7 +49,7 @@ class UserSeeder extends Seeder
             'userType' => 1,
         ]);
 
-        DB::table('users')->insert([
+        DB::table('web_users')->insert([
             'name' => "Applein MacTavish",
             'email' => "applein@bileka.com",
             'password' => Hash::make('password'),
